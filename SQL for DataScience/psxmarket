@@ -6,16 +6,17 @@ import sqlite3
 conn = sqlite3.connect('kse100psxjsb.db')
 c = conn.cursor()
 conn.execute('''CREATE TABLE IF NOT EXISTS AutoMobileAssembler
-              (Scrip TEXT, Ldcp TEXT,Open TEXT ,High  TEXT,Low  TEXT,Current  TEXT,Change  TEXT,Volume  TEXT)''')
+              (Scrip VAR, Ldcp TEXT,Oppen TEXT ,High  TEXT,Low  TEXT,Current TEXT,Change TEXT,Volume TEXT)''')
 print("Database created and Successfully Connected to SQLite")
 while True:
             
-            data=[]
-     
+            c.execute('''DELETE FROM AutoMobileAssembler ''')
+            conn.commit() 
+            loc='C:\chrome\chromedriver.exe'
             options=webdriver.ChromeOptions()
             options.add_argument("--log-level=3")
             options.add_argument("--start-maximized")
-            driver=webdriver.Chrome(chrome_options=options)
+            driver=webdriver.Chrome(loc,chrome_options=options)
             driver.get("https://www.psx.com.pk/market-summary/")
             page=driver.page_source
             soup=BeautifulSoup(str(page),'html.parser')
@@ -33,65 +34,65 @@ while True:
             #.......................GREEN..........................
             print('**************************GREEN***************************')
             for det in Spansoup2.find_all('tr',{'class':'green-text-td'}):
-                scripg=det.find_all('td')[0]
-                print(scripg.text)
-                ldcg=det.find_all('td')[1]
-                print(ldcg.text)
-                openg=det.find_all('td')[2]
-                print(openg.text)
-                highg=det.find_all('td')[3]
-                print(highg.text)
-                lowg=det.find_all('td')[4]
-                print(lowg.text)
-                currg=det.find_all('td')[5]
-                print(currg.text)
-                chng=det.find_all('td')[6]
-                print(chng.text)
-                volg=det.find_all('td')[7]
-                print(volg.text)
+                scripg=det.find_all('td')[0].text
+                print(scripg)
+                ldcg=det.find_all('td')[1].text
+                print(ldcg)
+                openg=det.find_all('td')[2].text
+                print(openg)
+                highg=det.find_all('td')[3].text
+                print(highg)
+                lowg=det.find_all('td')[4].text
+                print(lowg)
+                currg=det.find_all('td')[5].text
+                print(currg)
+                chng=det.find_all('td')[6].text
+                print(chng)
+                volg=det.find_all('td')[7].text
+                print(volg)
                 c.execute('''INSERT INTO AutoMobileAssembler VALUES(?,?,?,?,?,?,?,?)''',(scripg,ldcg,openg,highg,lowg,currg,chng,volg))
                 conn.commit()
 
                    #.......................RED..........................
             print('**************************RED***************************') 
             for det in Spansoup2.find_all('tr',{'class':'red-text-td'}):
-                scripr=det.find_all('td')[0]
-                print(scripr.text)
-                ldcr=det.find_all('td')[1]
-                print(ldcr.text)
-                openr=det.find_all('td')[2]
-                print(openr.text)
-                highr=det.find_all('td')[3]
-                print(highr.text)
-                lowr=det.find_all('td')[4]
-                print(lowr.text)
-                currr=det.find_all('td')[5]
-                print(currr.text)
-                chnr=det.find_all('td')[6]
-                print(chnr.text)
-                volr=det.find_all('td')[7]
-                print(volr.text)
+                scripr=det.find_all('td')[0].text
+                print(scripr)
+                ldcr=det.find_all('td')[1].text
+                print(ldcr)
+                openr=det.find_all('td')[2].text
+                print(openr)
+                highr=det.find_all('td')[3].text
+                print(highr)
+                lowr=det.find_all('td')[4].text
+                print(lowr)
+                currr=det.find_all('td')[5].text
+                print(currr)
+                chnr=det.find_all('td')[6].text
+                print(chnr)
+                volr=det.find_all('td')[7].text
+                print(volr)
                 c.execute('''INSERT INTO AutoMobileAssembler VALUES(?,?,?,?,?,?,?,?)''',(scripr,ldcr,openr,highr,lowr,currr,chnr,volr))
                 conn.commit()
                   #.......................BLUE..........................
             print('**************************BLUE***************************') 
             for det in Spansoup2.find_all('tr',{'class':'blue-text-td'}):
-                scripb=det.find_all('td')[0]
-                print(scripb.text)
-                ldcb=det.find_all('td')[1]
-                print(ldcb.text)
-                openb=det.find_all('td')[2]
-                print(openb.text)
-                highb=det.find_all('td')[3]
-                print(highb.text)
-                lowb=det.find_all('td')[4]
-                print(lowb.text)
-                currb=det.find_all('td')[5]
-                print(currb.text)
-                chnb=det.find_all('td')[6]
-                print(chnb.text)
-                volb=det.find_all('td')[7]
-                print(volb.text)
+                scripb=det.find_all('td')[0].text
+                print(scripb)
+                ldcb=det.find_all('td')[1].text
+                print(ldcb)
+                openb=det.find_all('td')[2].text
+                print(openb)
+                highb=det.find_all('td')[3].text
+                print(highb)
+                lowb=det.find_all('td')[4].text
+                print(lowb)
+                currb=det.find_all('td')[5].text
+                print(currb)
+                chnb=det.find_all('td')[6].text
+                print(chnb)
+                volb=det.find_all('td')[7].text
+                print(volb)
                 c.execute('''INSERT INTO AutoMobileAssembler VALUES(?,?,?,?,?,?,?,?)''',(scripb,ldcb,openb,highb,lowb,currb,chnb,volb))
                 conn.commit()
                 print("Completed")
