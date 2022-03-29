@@ -1,0 +1,152 @@
+from re import I
+from selenium import webdriver
+from bs4 import BeautifulSoup
+import time
+import sqlite3
+from datetime import datetime
+
+i=0
+while True:
+       #conn = sqlite3.connect('kse100psxjsb.db')
+       #c = conn.cursor()
+       #conn.execute('''CREATE TABLE IF NOT EXISTS PSXMARKETSUMMARY
+                #(Date DATETIME,Time DATETIME,Headline TEXT ,Scrip TEXT, Ldcp TEXT,Oppen TEXT ,High TEXT,Low TEXT,Current TEXT,Change TEXT,Volume TEXT)''')
+       #print("Database created and Successfully Connected to SQLite")
+       now = datetime.now()
+       options=webdriver.ChromeOptions()
+       options.add_argument("--log-level=3")
+       options.add_argument("--start-maximized")
+       driver=webdriver.Chrome(chrome_options=options)
+       driver.get("https://www.psx.com.pk/market-summary/")
+       try:
+           
+           
+            
+            for i in range(36):
+                page=driver.page_source
+                soup=BeautifulSoup(str(page),'html.parser')
+                AutoAssembl=soup.find_all('div',{'id':'marketmainboard'})
+                Spansoup=BeautifulSoup(str(AutoAssembl),'html.parser')
+                table=Spansoup.find_all('div',{'class':'table-responsive'})[i]
+                Spansoup2=BeautifulSoup(str(table),'html.parser')
+                print("*******************",Spansoup2.th.h4.text,'**********************')
+                for det in Spansoup2.find_all('tr',{'class':'green-text-td'}):
+                        current_dateg = now.date()
+                        print(current_dateg)
+                        current_timeg = now.time()
+                        print( current_timeg)
+                        headline=Spansoup2.th.h4.text
+                        print(headline)
+                        scripg=det.find_all('td')[0].text
+                        print(scripg)
+                        ldcg=det.find_all('td')[1].text
+                        print(ldcg)
+                        openg=det.find_all('td')[2].text
+                        print(openg)
+                        highg=det.find_all('td')[3].text
+                        print(highg)
+                        lowg=det.find_all('td')[4].text
+                        print(lowg)
+                        currg=det.find_all('td')[5].text
+                        print(currg)
+                        chng=det.find_all('td')[6].text
+                        print(chng)
+                        volg=det.find_all('td')[7].text
+                        print(volg)
+                        #c.execute('''INSERT INTO PSXMARKETSUMMARY VALUES(?,?,?,?,?,?,?,?,?,?,?)''',(current_dateg,current_timeg,headline,scripg,ldcg,openg,highg,lowg,currg,chng,volg))
+                        #conn.commit()
+                        
+
+                        #.......................RED..........................
+                print('**************************RED***************************') 
+                for det in Spansoup2.find_all('tr',{'class':'red-text-td'}):
+                        current_dater = now.date()
+                        print(current_dater)
+                        current_timer = now.time()
+                        print( current_timer)
+                        headline=Spansoup2.th.h4.text
+                        print(headline)
+                        scripr=det.find_all('td')[0].text
+                        print(scripr)
+                        ldcr=det.find_all('td')[1].text
+                        print(ldcr)
+                        openr=det.find_all('td')[2].text
+                        print(openr)
+                        highr=det.find_all('td')[3].text
+                        print(highr)
+                        lowr=det.find_all('td')[4].text
+                        print(lowr)
+                        currr=det.find_all('td')[5].text
+                        print(currr)
+                        chnr=det.find_all('td')[6].text
+                        print(chnr)
+                        volr=det.find_all('td')[7].text
+                        print(volr)
+                        
+                        #c.execute('''INSERT INTO PSXMARKETSUMMARY VALUES(?,?,?,?,?,?,?,?,?,?,?)''',(current_dater,current_timer,headline,scripr,ldcr,openr,highr,lowr,currr,chnr,volr))
+                        #conn.commit()
+                        
+                        
+                        #.......................BLUE..........................
+                print('**************************BLUE***************************') 
+                for det in Spansoup2.find_all('tr',{'class':'blue-text-td'}):
+                        current_dateb = now.date()
+                        print(current_dateb)
+                        current_timeb = now.time()
+                        print( current_timeb)
+                        headline=Spansoup2.th.h4.text
+                        print(headline)
+                        scripb=det.find_all('td')[0].text
+                        print(scripb)
+                        ldcb=det.find_all('td')[1].text
+                        print(ldcb)
+                        openb=det.find_all('td')[2].text
+                        print(openb)
+                        highb=det.find_all('td')[3].text
+                        print(highb)
+                        lowb=det.find_all('td')[4].text
+                        print(lowb)
+                        currb=det.find_all('td')[5].text
+                        print(currb)
+                        chnb=det.find_all('td')[6].text
+                        print(chnb)
+                        volb=det.find_all('td')[7].text
+                        print(volb)
+                        #c.execute('''INSERT INTO PSXMARKETSUMMARY VALUES(?,?,?,?,?,?,?,?,?,?,?)''',(current_dateb,current_timeb,headline,scripb,ldcb,openb,highb,lowb,currb,chnb,volb))
+                        #conn.commit()
+            time.sleep(86400)          
+                       
+
+       except  Exception as e:
+                    scripg=None
+                    ldcg=None
+                    openg=None
+                    highg=None
+                    lowg=None
+                    currg=None
+                    chng=None
+                    volg=None
+                    scripr=None
+                    ldcr=None
+                    openr=None
+                    highr=None
+                    lowr=None
+                    currr=None
+                    chnr=None
+                    volr=None
+                    scripb=None
+                    ldcb=None
+                    openb=None
+                    highb=None
+                    lowb=None
+                    currb=None
+                    chnb=None
+                    volb=None
+       #c.execute ('''SELECT * FROM PSXMARKETSUMMARY''' )
+       #results = c.fetchall ( )
+       #print ( results )
+
+            
+
+       
+            
